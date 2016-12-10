@@ -17,8 +17,36 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 
 app.use(ejsLayouts);
 
-app.get("/", function(req, res) {
+app.get('/', function(req, res) {
   res.render("index")
+});
+
+app.get('/articles', function(req, res) {
+  var results = []
+  db.article.findAll().then(function(articles) {
+    results.push(articles);
+    db.user.findOne({
+      where: { id: req.user.id }
+    }).then(function(user) {
+      results.push(user);
+      res.send(results);
+    });
+  });
+});
+
+app.get('/articles/:id', function(req,res) {
+  var results = [];
+  db.article.findOne({
+    where: { id: req.params.id },
+  }).then(function(article) {
+    article.getArticleLikes().then(function(articleLikes) {
+      results.push(articleLikes);
+      article.getComments().then(function(comments) {
+        results.push(comments);
+        res.send(results);
+      });
+    });
+  });
 });
 
 var server = app.listen(process.env.PORT || 3000);
