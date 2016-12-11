@@ -2,7 +2,7 @@ var ArticlesContainer = React.createClass({
   getInitialState: function() {
     return {
       articles: [],
-      user: []
+      // user: []
     }
   },
 
@@ -13,24 +13,26 @@ var ArticlesContainer = React.createClass({
       url: "/articles",
       method: "GET",
       success: function(dataFromServer) {
-        this.setState({articles: dataFromServer[0]});
-        this.setState({user: dataFromServer[1]});
-      }.bind(this),
-      error: function(xhr, status, err) {
-        console.error("/articles", status, err.toString());
+        // console.log(dataFromServer[0])
+        this.setState({ articles: dataFromServer[0] })
+        // this.setState({user: dataFromServer[0].user});
       }.bind(this)
     });
   },
 
   render: function() {
     var result = this.state.articles.map(function(article) {
-      <Article key={article.id} article={article} user={this.state.user}/>
+      // console.log(article.user);
+      return (
+        // <Article key={article.id} article={article} />
+        <Article key={article.id} article={article} user={article.user}/>
+      )
     }.bind(this));
 
-    return {
+    return (
       <div className='container'>
         {result}
       </div>
-    }
+    )
   }
 });

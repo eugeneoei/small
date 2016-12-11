@@ -1,9 +1,9 @@
 var IndexPage = React.createClass({
   render: function() {
-    return {
+    return (
       <div>
         <ArticlesContainer />
       </div>
-    }
+    )
   }
 });
