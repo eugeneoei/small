@@ -2,18 +2,12 @@ var Article = React.createClass({
   render: function() {
     // console.log(this.props.user);
     return (
-      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12'>
-        <ArticleHeader avatarUrl={this.props.user.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
+      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 articleBox'>
+        <ArticleHeader avatarUrl={this.props.user.avatarUrl} userName={this.props.user.firstName + " " + this.props.user.lastName} createdAt={this.props.article.createdAt} />
         <ArticleTitle title={this.props.article.title} />
         <ArticleContent content={this.props.article.content} />
         <ArticleFooter articleId={this.props.article.id} user={this.props.user}/>
       </div>
-      // <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12'>
-      //   <ArticleHeader avatarUrl={this.props.user.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
-      //   <ArticleTitle title={this.props.article.title} />
-      //   <ArticleContent content={this.props.article.content} />
-      //   <ArticleFooter articleId={this.props.article.id} user={this.props.user}/>
-      // </div>
     )
   }
 });

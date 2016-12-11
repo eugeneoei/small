@@ -1,3 +1,39 @@
 .green {
   color: #00ab6b;
 }
+
+.remove-glow:focus,
+.remove-glow:active,
+.remove-glow.active,
+.remove-glow:focus:active {
+  background-image: none;
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+.articleBox {
+  border: 1px solid black;
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.navbar {
+  line-height: 50px;
+}
+
+.button {
+  text-align: center;
+}
+
+.button:hover {
+  cursor: pointer;
+}
+
+.navbar-back {
+  display: inline-block;
+}
+
+.form-input {
+  line-height: 30px !important;
+}

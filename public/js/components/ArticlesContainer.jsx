@@ -24,7 +24,6 @@ var ArticlesContainer = React.createClass({
     var result = this.state.articles.map(function(article) {
       // console.log(article.user);
       return (
-        // <Article key={article.id} article={article} />
         <Article key={article.id} article={article} user={article.user}/>
       )
     }.bind(this));
