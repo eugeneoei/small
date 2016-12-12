@@ -50,17 +50,25 @@ app.get('/', function(req, res) {
 // app.use('/', require('./controllers/auth'));
 
 app.get('/articles', function(req, res) {
-  // var results = []
   db.article.findAll().then(function(articles) {
-    // console.log(articles[0]);
-    // results.push(articles);
     res.send(articles);
-    // db.user.findOne({
-    //   where: { id: req.user.id }
-    // }).then(function(user) {
-    //   results.push(user);
-    //   res.send(results);
-    // });
+  });
+});
+
+app.post('/articles', function(req, res) {
+  var userName;
+  if (req.body.userName) {
+    userName = req.body.userName;
+  } else {
+    userName = 'Anonymous';
+  }
+  db.article.create({
+    title: req.body.title,
+    content: req.body.content,
+    userName: req.body.userName,
+    avatarUrl: 'https://image.freepik.com/free-icon/astronaut_318-136948.jpg'
+  }).then(function(data) {
+    res.send(data);
   });
 });
 

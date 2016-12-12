@@ -24,7 +24,10 @@
 
 .button {
   text-align: center;
+}
 
+.button:hover {
+  cursor: pointer;
 }
 
 .center {
@@ -42,9 +45,7 @@
   cursor: pointer;
 }
 
-.button:hover {
-  cursor: pointer;
-}
+
 
 .navbar-back {
   display: inline-block;

@@ -1,49 +1,65 @@
 var ArticleForm = React.createClass({
   getInitialState: function() {
     return {
-      createPostForm: false
+      // username: this.props.sharedUsernameVariable,
+      createArticleForm: false,
+      articleTitle: '',
+      articleContent: ''
     }
   },
 
-  toggleCreatePostForm: function() {
-    if (this.state.createPostForm) {
-      this.setState({ createPostForm: false })
+  toggleCreateArticleForm: function() {
+    if (this.state.createArticleForm) {
+      this.setState({ createArticleForm: false })
     } else {
-      this.setState({ createPostForm: true })
+      this.setState({ createArticleForm: true })
     }
   },
 
   showForm: function(status) {
     if (status) {
       return (
-        <form onSubmit={this.handleCreatePostForm}>
-          <div className='center' onClick={this.toggleCreatePostForm}>
+        <form onSubmit={this.handleCreateArticleForm}>
+          <div className='center' onClick={this.toggleCreateArticleForm}>
             <span className="glyphicon glyphicon-minus-sign icon" aria-hidden="true"></span>
           </div>
           TITLE:
-          <input className='form-input remove-glow' type='text' name='title' placeholder='Title'></input>
+          <input className='form-input remove-glow' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
           Content:
-          <input className='form-input remove-glow' type='text' name='content' placeholder='Content'></input>
+          <input className='form-input remove-glow' type='text' name='content' placeholder='Content' value={this.state.articleContent} onChange={this.handleArticleContentChange}></input>
+          <div className='button' onClick={this.handleCreateArticleForm}>Submit</div>
         </form>
       )
     } else {
       return (
         <div className='center'>
-          <span className="glyphicon glyphicon-plus-sign icon" onClick={this.toggleCreatePostForm} aria-hidden="true"></span>
+          <span className="glyphicon glyphicon-plus-sign icon" onClick={this.toggleCreateArticleForm} aria-hidden="true"></span>
         </div>
       )
     }
   },
 
-  handleCreatePostForm: function() {
+  handleArticleTitleChange: function(event) {
+    this.setState({ articleTitle: event.target.value });
+  },
 
+  handleArticleContentChange: function(event) {
+    this.setState({ articleContent: event.target.value });
+  },
+
+  handleCreateArticleForm: function() {
+    this.props.articleCreate({
+      title: this.state.articleTitle,
+      content: this.state.articleContent,
+      userName: this.props.sharedUsernameVariable
+    });
   },
 
   render: function() {
 
     return (
-      <div className='col-md-12 col-sm-12 col-xs-12'>
-        {this.showForm(this.state.createPostForm)}
+      <div className='col-md-12 col-sm-12 col-xs-12 center'>
+        {this.showForm(this.state.createArticleForm)}
       </div>
     )
   }
