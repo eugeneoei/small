@@ -1,9 +1,10 @@
 var IndexPage = React.createClass({
 
   render: function() {
-    console.log(this.props.currentUser);
     return (
       <div>
+        <NavBar />
+        <ArticleForm />
         <ArticlesContainer />
       </div>
     )

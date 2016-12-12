@@ -24,6 +24,22 @@
 
 .button {
   text-align: center;
+
+}
+
+.center {
+  /*background-color: #00ab6b;*/
+  text-align: center;
+  /*transition: all .5s ease-in-out;*/
+}
+
+.icon {
+  color: #00ab6b;
+  font-size: 50px;
+}
+
+.icon:hover {
+  cursor: pointer;
 }
 
 .button:hover {
@@ -36,4 +52,12 @@
 
 .form-input {
   line-height: 30px !important;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.align-right {
+  text-align: right;
 }

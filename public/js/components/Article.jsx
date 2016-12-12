@@ -59,9 +59,10 @@ var ArticleContent = React.createClass({
   // toggle length of content shown
   contentShortener: function(text, expanded) {
     if(expanded){
-      return text
-    }
-    else {
+      return (
+        text
+      )
+    } else {
       if (text.length < 500) {
         return text
       }  else {
@@ -73,17 +74,16 @@ var ArticleContent = React.createClass({
   },
 
   // toggle to show view more/less
-  view: function(expanded) {
-    if(expanded){
+  view: function(text, expanded) {
+    if(text.length > 500 && expanded){
       return (
         <a onClick={this.viewFullArticle}>view less</a>
       )
-    }
-    else{
+    } else if (text.length > 500 && !expanded) {
       return (
         <a onClick={this.viewFullArticle}>view more</a>
       )
-    }
+    } 
   },
 
   viewFullArticle: function() {
@@ -104,7 +104,7 @@ var ArticleContent = React.createClass({
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>
         <p>{this.contentShortener(content, this.state.expanded)}</p>
-        {this.view(this.state.expanded)}
+        {this.view(content, this.state.expanded)}
       </div>
     )
   }
