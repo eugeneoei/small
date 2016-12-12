@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // app.use(ejsLayouts);
 
 app.get('/', function(req, res) {
-  // console.log(req.user);
+  // console.log(req.user); 
   res.render("index")
 });
 

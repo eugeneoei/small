@@ -15,15 +15,18 @@ var IndexPage = React.createClass({
       method: "GET",
       success: function(dataFromServer) {
         // console.log(dataFromServer[0])
-        this.setState({ articles: dataFromServer })
+        this.setState({ articles: dataFromServer });
         // this.setState({user: dataFromServer[0].user});
       }.bind(this)
     });
   },
 
   handleSharedUsernameVariable: function(sharedValue) {
-    this.setState({ sharedUsernameVariable: sharedValue })
+    // console.log('this is sharedValue', sharedValue);
     // console.log(this.state.sharedUsernameVariable);
+    this.setState({ sharedUsernameVariable: sharedValue });
+    // console.log(this.state.sharedUsernameVariable);
+    // console.log(this.state.sharedUsernameVariable.length);
   },
 
   articleCreate: function(data) {
@@ -46,7 +49,7 @@ var IndexPage = React.createClass({
       <div>
         <NavBar sharedUsernameVariable={this.state.sharedUsernameVariable} handleSharedUsernameVariable={this.handleSharedUsernameVariable} />
         <ArticleForm sharedUsernameVariable={this.state.sharedUsernameVariable} articleCreate={this.articleCreate} />
-        <ArticlesContainer articles={this.state.articles} />
+        <ArticlesContainer articles={this.state.articles} sharedUsernameVariable={this.state.sharedUsernameVariable} />
       </div>
     )
   }

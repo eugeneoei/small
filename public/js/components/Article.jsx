@@ -6,7 +6,7 @@ var Article = React.createClass({
         <ArticleHeader avatarUrl={this.props.article.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
         <ArticleTitle title={this.props.article.title} />
         <ArticleContent content={this.props.article.content} />
-        <ArticleFooter articleId={this.props.article.id} />
+        <ArticleFooter articleId={this.props.article.id} sharedUsernameVariable={this.props.sharedUsernameVariable} />
       </div>
     )
   }
@@ -83,7 +83,7 @@ var ArticleContent = React.createClass({
       return (
         <a onClick={this.viewFullArticle}>view more</a>
       )
-    } 
+    }
   },
 
   viewFullArticle: function() {
@@ -134,7 +134,7 @@ var ArticleFooter = React.createClass({
   render: function() {
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>
-        <ArticlesLikes articleLikes={this.state.articleLikes} />
+        <ArticlesLikes articleLikes={this.state.articleLikes} sharedUsernameVariable={this.props.sharedUsernameVariable} />
         <ArticlesComments comments={this.state.comments}/>
       </div>
     )
@@ -146,6 +146,14 @@ var ArticlesLikes = React.createClass({
     return {
       likeStatus: false
     }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    var result = this.props.articleLikes.map(function(articleLike, index) {
+      if (nextProps.sharedUsernameVariable === articleLike.userName) {
+        this.setState({ likeStatus: true });
+      }
+    }.bind(this));
   },
 
   userLike: function(status) {

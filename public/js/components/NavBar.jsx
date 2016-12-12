@@ -10,7 +10,7 @@ var NavBar = React.createClass({
     if(status) {
       return (
         <p>
-          {this.state.username}
+          {this.props.sharedUsernameVariable}
         </p>
       )
     } else {
@@ -28,13 +28,17 @@ var NavBar = React.createClass({
 
   handleUsernameChange: function(event) {
     this.setState({ username: event.target.value });
-    // handleSharedUsernameVariable is a function passed from parent component IndexPage
-    this.props.handleSharedUsernameVariable(event.target.value);
+
   },
 
   handleUsernameForm: function(event) {
     event.preventDefault();
     this.setState({ isUsername: true });
+    this.setState({ username: '' });
+    // console.log(this.state.username);
+    // handleSharedUsernameVariable is a function passed from parent component IndexPage
+    this.props.handleSharedUsernameVariable(this.state.username);
+    // console.log(this.state.username);
   },
 
   render: function() {

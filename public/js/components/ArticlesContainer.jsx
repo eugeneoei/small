@@ -1,11 +1,10 @@
 var ArticlesContainer = React.createClass({
 
   render: function() {
-    console.log('hellooooooo');
-    var result = this.props.articles.map(function(article, index) {
+    var result = this.props.articles.map(function(article) {
       return (
         // user here is owner of article
-        <Article key={article.id} article={article} />
+        <Article key={article.id} article={article} sharedUsernameVariable={this.props.sharedUsernameVariable} />
       )
     }.bind(this));
 
