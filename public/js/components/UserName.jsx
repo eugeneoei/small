@@ -17,7 +17,7 @@ var UserName = React.createClass({
       return (
         <form onSubmit={this.handleUsernameForm}>
           Username:
-          <input type='text' className='form-input remove-glow'></input>
+          <input type='text' name='username' place='Username' className='form-input remove-glow' value={this.state.username} onChange={this.handleUsernameChange}></input>
           <div className='button inline-block' onClick={this.handleUsernameForm}>
             SUBMIT
           </div>
@@ -37,7 +37,7 @@ var UserName = React.createClass({
 
   render: function() {
     return (
-      <div className='col-md-12 col-sm-12 col-xs-12'>
+      <div className='col-md-12 col-sm-12 col-xs-12 align-right'>
         {this.showUsernameInput(this.state.isUsername)}
       </div>
     )
