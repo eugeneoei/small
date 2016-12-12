@@ -3,10 +3,10 @@ var Article = React.createClass({
     // console.log(this.props.user);
     return (
       <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 articleBox'>
-        <ArticleHeader avatarUrl={this.props.user.avatarUrl} userName={this.props.user.firstName + " " + this.props.user.lastName} createdAt={this.props.article.createdAt} />
+        <ArticleHeader avatarUrl={this.props.article.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
         <ArticleTitle title={this.props.article.title} />
         <ArticleContent content={this.props.article.content} />
-        <ArticleFooter articleId={this.props.article.id} user={this.props.user}/>
+        <ArticleFooter articleId={this.props.article.id} />
       </div>
     )
   }
@@ -62,12 +62,12 @@ var ArticleContent = React.createClass({
       return text
     }
     else {
-      if (text.length < 100) {
+      if (text.length < 500) {
         return text
       }  else {
         // console.log(typeof(text));
         // console.log('see here', this.props.content.slice(0,100));
-        return text.slice(0,100) + " ...."
+        return text.slice(0,500) + " ...."
       }
     }
   },
@@ -118,14 +118,15 @@ var ArticleFooter = React.createClass({
     }
   },
 
-  // ajax to get number of likes and comments of each particular article
+  // // ajax to get number of likes and comments of each particular article
   componentWillMount: function() {
     $.ajax({
       url: "/articles/" + this.props.articleId,
       method: "GET",
       success: function(dataFromServer) {
-        this.setState({articleLikes: dataFromServer[0]});
-        this.setState({comments: dataFromServer[1]});
+        this.setState({ articleLikes: dataFromServer[0] });
+        // console.log(dataFromServer[0]);
+        this.setState({ comments: dataFromServer[1] });
       }.bind(this),
     });
   },
@@ -133,8 +134,8 @@ var ArticleFooter = React.createClass({
   render: function() {
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>
-        <ArticlesLikes articleId={this.props.articleId} user={this.props.user} articleLikes={this.state.articleLikes} />
-        <ArticlesComments articleId={this.props.articleId} comments={this.state.comments}/>
+        <ArticlesLikes articleLikes={this.state.articleLikes} />
+        <ArticlesComments comments={this.state.comments}/>
       </div>
     )
   }
@@ -144,15 +145,6 @@ var ArticlesLikes = React.createClass({
   getInitialState: function() {
     return {
       likeStatus: false
-    }
-  },
-
-  componentWillMount: function() {
-    var articleLikes = this.props.articleLikes;
-    for (var i = 0; i < articleLikes.length; i++) {
-      if (articleLikes[i].userId === this.props.user.id) {
-        this.setState({likeStatus: true});
-      }
     }
   },
 
@@ -182,6 +174,8 @@ var ArticlesLikes = React.createClass({
 });
 
 var ArticlesComments = React.createClass({
+
+  // need to show comments in each individual article
 
   response: function(commentsLength) {
     if (commentsLength > 1) {

@@ -5,10 +5,7 @@ var NavBar = React.createClass({
       authDiv: true,
       isLoggedIn: false,
       logInForm: false,
-      signUpForm: false,
-
-      logInEmail: '',
-      logInPassword: ''
+      signUpForm: false
     }
   },
 
@@ -43,10 +40,10 @@ var NavBar = React.createClass({
         <div className='col-md-12 col-sm-12 col-xs-12'>
           <form onSubmit={this.handleLogInSubmit}>
             Email:
-            <input className='form-input remove-glow' onChange={this.logInEmailChange} value={this.state.logInEmail} type='text' name='email' placeholder='Your Email'></input>
+            <input className='form-input remove-glow' type='text' name='email' placeholder='Your Email'></input>
             Password:
-            <input className='form-input remove-glow' onChange={this.logInPasswordChange} value={this.state.logInPassword} type='password' name='password' placeholder='Your Password'></input>
-            <button className='remove-glow button' type='submit' onClick={this.handleLogInSubmit}>Log In</button>
+            <input className='form-input remove-glow' type='password' name='password' placeholder='Your Password'></input>
+            <button className='remove-glow' type='submit'>Log In</button>
             <div className='button navbar-back' onClick={this.toggleLogInFormState}>BACK</div>
           </form>
       </div>
@@ -54,34 +51,8 @@ var NavBar = React.createClass({
     }
   },
 
-  handleLogInSubmit: function(event) {
-    // event.preventDefault();
-    $.ajax({
-      method: 'POST',
-      url: '/login',
-      data: {
-        email: this.state.logInEmail,
-        password: this.state.logInPassword
-      },
-      success: function () {
-        console.log('user is now logged in');
-        window.location('/home');
-        // console.log(currentUser);
-        // console.log('inside', this.state.logInForm);
-      }
-    });
-    console.log('outside 1', this.state.logInForm);
-    // this.setState({ logInForm: false});
-    console.log('change authDiv status');
-    console.log('outside 2', this.state.logInForm);
-  },
+  handleLogInSubmit: function() {
 
-  logInEmailChange: function(event) {
-    this.setState({ logInEmail: event.target.value });
-  },
-
-  logInPasswordChange: function(event) {
-    this.setState({ logInPassword: event.target.value });
   },
 
   toggleSignUpFormState: function() {

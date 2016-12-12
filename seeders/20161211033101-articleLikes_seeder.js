@@ -14,292 +14,292 @@ module.exports = {
     */
     return queryInterface.bulkInsert('articleLikes', [
       {
-        userId: 4,
+        userName: 'David',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 4,
+        userName: 'David',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },
 
       {
-        userId: 1,
+        userName: 'David',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 1,
+        userName: 'David',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },
 
       {
-        userId: 2,
+        userName: 'David',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 2,
+        userName: 'David',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },
 
       {
-        userId: 3,
+        userName: 'David',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userId: 3,
+        userName: 'David',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()

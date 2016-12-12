@@ -14,7 +14,7 @@ var ArticlesContainer = React.createClass({
       method: "GET",
       success: function(dataFromServer) {
         // console.log(dataFromServer[0])
-        this.setState({ articles: dataFromServer[0] })
+        this.setState({ articles: dataFromServer })
         // this.setState({user: dataFromServer[0].user});
       }.bind(this)
     });
@@ -24,7 +24,9 @@ var ArticlesContainer = React.createClass({
     var result = this.state.articles.map(function(article) {
       // console.log(article.user);
       return (
-        <Article key={article.id} article={article} user={article.user}/>
+        // user here isowner of article
+        <Article key={article.id} article={article} />
+        // <Article key={article.id} article={article} user={article.user} articleLikes={article.articleLikes} articleComments={article.comments}/>
       )
     }.bind(this));
 

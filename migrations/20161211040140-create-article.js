@@ -17,8 +17,11 @@ module.exports = {
       articleImageUrl: {
         type: Sequelize.TEXT
       },
-      userId: {
-        type: Sequelize.INTEGER
+      userName: {
+        type: Sequelize.STRING
+      },
+      avatarUrl: {
+        type: Sequelize.TEXT
       },
       createdAt: {
         allowNull: false,

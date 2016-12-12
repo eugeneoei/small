@@ -29,7 +29,7 @@ router.post('/signup', function(req, res) {
       // if created, success and redirect home
       // here ensures user is logged in immediately after singup
       passport.authenticate('local', {
-        successRedirect: '/home',
+        successRedirect: '/',
         successFlash: 'Your account has been created and you\'re now logged in!'
       })(req, res);
     } else {
@@ -48,7 +48,7 @@ router.post('/signup', function(req, res) {
 
 // handle user login
 router.post('/login', passport.authenticate('local', {
-  successRedirect: '/',
+  successRedirect: '/home',
   successFlash: 'Good day! How is it going for you today?',
   failureRedirect: '/',
   failureFlash: 'Seems like the email and password do not match. Please try again.',
