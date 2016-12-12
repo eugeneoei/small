@@ -33,8 +33,10 @@ var IndexPage = React.createClass({
       data: data,
       success: function(dataFromServer) {
         // unshift new post into this.state.article
-        this.state.articles.unshift(dataFromServer);
-        console.log(this.state.articles);
+        var articlesList = this.state.articles;
+        // unshift so the latest article appears at the top
+        articlesList.unshift(dataFromServer);
+        this.setState({ articles: articlesList });
       }.bind(this)
     });
   },

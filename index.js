@@ -50,7 +50,11 @@ app.get('/', function(req, res) {
 // app.use('/', require('./controllers/auth'));
 
 app.get('/articles', function(req, res) {
-  db.article.findAll().then(function(articles) {
+  db.article.findAll({
+    order: [['createdAt', 'DESC']]
+  }).then(function(articles) {
+    // console.log('see here for articles', articles);
+    console.log('see here for type of', typeof(articles[0]));
     res.send(articles);
   });
 });
@@ -65,9 +69,11 @@ app.post('/articles', function(req, res) {
   db.article.create({
     title: req.body.title,
     content: req.body.content,
-    userName: req.body.userName,
+    userName: userName,
     avatarUrl: 'https://image.freepik.com/free-icon/astronaut_318-136948.jpg'
   }).then(function(data) {
+    // console.log(typeof(data));
+    console.log('see here for new data', data);
     res.send(data);
   });
 });
@@ -81,8 +87,8 @@ app.get('/articles/:id', function(req,res) {
       results.push(articleLikes);
       article.getComments().then(function(comments) {
         results.push(comments);
-        console.log('did you get sent???');
-        console.log('see here for likes', results[0]);
+        // console.log('did you get sent???');
+        // console.log('see here for likes', results[0]);
         res.send(results);
       });
     });

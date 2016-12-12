@@ -20,8 +20,8 @@ var ArticleForm = React.createClass({
     if (status) {
       return (
         <form onSubmit={this.handleCreateArticleForm}>
-          <div className='center' onClick={this.toggleCreateArticleForm}>
-            <span className="glyphicon glyphicon-minus-sign icon" aria-hidden="true"></span>
+          <div className='center'>
+            <span className="glyphicon glyphicon-minus-sign icon" onClick={this.toggleCreateArticleForm} aria-hidden="true"></span>
           </div>
           TITLE:
           <input className='form-input remove-glow' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
@@ -53,6 +53,9 @@ var ArticleForm = React.createClass({
       content: this.state.articleContent,
       userName: this.props.sharedUsernameVariable
     });
+    this.setState({ createArticleForm: false });
+    this.setState({ articleTitle: '' });
+    this.setState({ articleContent: '' });
   },
 
   render: function() {
