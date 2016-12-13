@@ -1,4 +1,13 @@
+var socket = io(window.location.host);
+console.log(socket);
+
 var Article = React.createClass({
+
+  componentWillMount: function() {
+    // set up connect before component is rendered
+
+  },
+
   render: function() {
     // console.log(this.props.user);
     return (
@@ -125,6 +134,7 @@ var ArticleFooter = React.createClass({
 
   // // ajax to get number of likes and comments of each particular article
   componentWillMount: function() {
+    // console.log('footer componentWillMount');
     $.ajax({
       url: "/articles/" + this.props.articleId,
       method: "GET",
@@ -134,6 +144,26 @@ var ArticleFooter = React.createClass({
         this.setState({ comments: dataFromServer[1] });
       }.bind(this),
     });
+    // start listening for incoming sockets when component is rendered
+    {this.socketListeners(socket)}
+  },
+
+  socketListeners: function(socket) {
+    socket.on('new comment', this.receiveNewComment);
+  },
+
+  receiveNewComment: function(data, articleId) {
+    var newComment = {
+      id: this.state.comments.length + 1,
+      content: data.content,
+      userName: data.userName,
+      articleId: articleId
+    };
+    console.log('see here for new comment object', newComment);
+    // push new comment into this.state.comments
+    var addedCommentList = this.state.comments;
+    addedCommentList.push(data);
+    this.setState({ comments: addedCommentList });
   },
 
   handleSharedCommentsBoxStatus: function(status) {
@@ -143,7 +173,6 @@ var ArticleFooter = React.createClass({
 
   handleCommentCreate: function(data, articleId) {
     // console.log(articleId);
-
     $.ajax({
       url: '/articles/' + articleId + '/comments',
       method: 'POST',
@@ -155,7 +184,9 @@ var ArticleFooter = React.createClass({
         commentsList.push(dataFromServer);
         this.setState({ comments: commentsList });
       }.bind(this),
-    })
+    });
+
+    socket.emit('new comment', data, this.props.articleId);
   },
 
   render: function() {
@@ -195,6 +226,7 @@ var ArticleLikes = React.createClass({
   },
 
   // receive update on the change in parent status
+  // use componentWillReceiveProps when change in the state in sibling causes a re-render on its sibling component
   componentWillReceiveProps: function(nextProps) {
     this.props.articleLikes.map(function(articleLike, index) {
       if (nextProps.sharedUsernameVariable === articleLike.userName) {
@@ -285,25 +317,29 @@ var ArticleCommentsBox = React.createClass({
   },
 
   showCommentsBox: function(status) {
+    var commentBoxDiv;
+    var inputBoxDiv;
     var result = this.props.comments.map(function(comment) {
       var userName = comment.userName
       var userNameComment = comment.content
+      commentBoxDiv = 'commentBoxDiv' + comment.id,
+      inputBoxDiv = 'inputBoxDiv' + comment.id
       return (
-        <div key={comment.id} className='col-md-12 col-sm-12 col-xs-12'>
+        <div key={commentBoxDiv} className='col-md-12 col-sm-12 col-xs-12'>
           <p>{userName} says:</p>
           <p>{userNameComment}</p>
         </div>
       )
-    });
+    }.bind(this));
 
     if (status) {
       return (
-        <div className='col-md-12 col-sm-12 col-xs-12'>
+        <div key={inputBoxDiv} className='col-md-12 col-sm-12 col-xs-12'>
           {result}
-          <form onSubmit={this.handleNewCommentSubmit}>
+          <form id='newCommentForm' onSubmit={this.handleNewCommentSubmit}>
             <input className='form-input remove-glow' type='text' name='comment' placeholder='Write a comment...' value={this.state.newComment} onChange={this.handleNewCommentChange}></input>
           </form>
-      </div>
+        </div>
       )
     }
   },
@@ -315,19 +351,19 @@ var ArticleCommentsBox = React.createClass({
   handleNewCommentSubmit: function(event) {
     event.preventDefault();
     // reset input back to empty
-    this.setState({ newComment: '' })
+    this.setState({ newComment: '' });
     var data = {
       userName: this.props.sharedUsernameVariable,
       content: this.state.newComment
-    }
-    this.props.handleCommentCreate(data, this.props.articleId)
+    };
+    this.props.handleCommentCreate(data, this.props.articleId);
   },
 
   render: function() {
     // console.log('ArticleComments box status', this.state.sharedCommentsBoxStatus);
     var comments = this.props.comments.length;
     return (
-      <div className='col-md-12 col-sm-12 col-xs-12'>
+      <div key={this.props.articleId} className='col-md-12 col-sm-12 col-xs-12'>
         {this.showCommentsBox(this.state.sharedCommentsBoxStatus)}
       </div>
     )

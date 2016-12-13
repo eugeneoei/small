@@ -27,7 +27,7 @@ var ArticleForm = React.createClass({
           <input className='form-input remove-glow' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
           Content:
           <input className='form-input remove-glow' type='text' name='content' placeholder='Content' value={this.state.articleContent} onChange={this.handleArticleContentChange}></input>
-          <div className='button' onClick={this.handleCreateArticleForm}>Submit</div>
+          <div className='button' onClick={this.handleCreateArticleForm}>SUBMIT</div>
         </form>
       )
     } else {

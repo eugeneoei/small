@@ -14,7 +14,7 @@ module.exports = {
     */
     return queryInterface.bulkInsert('articleLikes', [
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -32,7 +32,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Batman',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -44,13 +44,13 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wolverine',
         articleId: 6,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -62,7 +62,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Batman',
         articleId: 9,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -87,7 +87,7 @@ module.exports = {
       },
 
       {
-        userName: 'David',
+        userName: 'Batman',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -99,13 +99,13 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wolverine',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -123,13 +123,13 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Batman',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wonderwoman',
         articleId: 8,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -141,7 +141,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -153,20 +153,20 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wonderwoman',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },
 
       {
-        userName: 'David',
+        userName: 'Wolverine',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Spiderman',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -184,7 +184,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -196,7 +196,7 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wonderwoman',
         articleId: 7,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -214,50 +214,50 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Spiderman',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Wonderwoman',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()
       },
 
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 2,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 3,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 4,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Spiderman',
         articleId: 5,
         createdAt: new Date(),
         updatedAt: new Date()
@@ -287,19 +287,19 @@ module.exports = {
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Catwoman',
         articleId: 10,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Spiderman',
         articleId: 11,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
-        userName: 'David',
+        userName: 'Batman',
         articleId: 12,
         createdAt: new Date(),
         updatedAt: new Date()

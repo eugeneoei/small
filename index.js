@@ -11,7 +11,10 @@ var app = express();
 // var isLoggedIn = require('./middleware/isLoggedIn');
 // var session = require('express-session');
 
-
+var http = require('http')
+var port = process.env.PORT || 3000
+var server = http.Server(app)
+var io = require('socket.io')(server)
 
 
 app.set('view engine', 'ejs');
@@ -49,16 +52,18 @@ app.get('/', function(req, res) {
 
 // app.use('/', require('./controllers/auth'));
 
+// get all articles
 app.get('/articles', function(req, res) {
   db.article.findAll({
     order: [['createdAt', 'DESC']]
   }).then(function(articles) {
     // console.log('see here for articles', articles);
-    console.log('see here for type of', typeof(articles[0]));
+    // console.log('see here for type of', typeof(articles[0]));
     res.send(articles);
   });
 });
 
+// create new article
 app.post('/articles', function(req, res) {
   var userName;
   if (req.body.userName) {
@@ -73,11 +78,12 @@ app.post('/articles', function(req, res) {
     avatarUrl: 'https://image.freepik.com/free-icon/astronaut_318-136948.jpg'
   }).then(function(data) {
     // console.log(typeof(data));
-    console.log('see here for new data', data);
+    // console.log('see here for new data', data);
     res.send(data);
   });
 });
 
+// get one article
 app.get('/articles/:id', function(req,res) {
   var results = [];
   db.article.findOne({
@@ -97,6 +103,7 @@ app.get('/articles/:id', function(req,res) {
   });
 });
 
+// create comment according to article
 app.post('/articles/:id/comments', function(req,res) {
   var userName;
   if (req.body.userName) {
@@ -116,4 +123,25 @@ app.post('/articles/:id/comments', function(req,res) {
   });
 });
 
-var server = app.listen(process.env.PORT || 3000);
+// socket.io
+io.on('connection', function(socket) {
+  console.log('a user connected');
+
+  socket.on('disconnect', function() {
+    console.log('user disconnected');
+  });
+
+  socket.on('new comment', function(data, articleId) {
+    console.log(data.userName, "says:", data.content);
+    console.log(articleId);
+    // broadcast to everyone except the user who created comment
+    socket.broadcast.emit('new comment', data, articleId);
+  });
+
+
+}); // socket end
+
+server.listen(port, () => {
+  console.log('Server listening on port: ', server.address().port)
+});
+// var server = app.listen(process.env.PORT || 3000);
