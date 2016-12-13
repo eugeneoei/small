@@ -19,14 +19,43 @@ var IndexPage = React.createClass({
         // this.setState({user: dataFromServer[0].user});
       }.bind(this)
     });
+
+    // start listening for any incoming sockets when component is rendered
+    // but is this the correct place to put it?
+    {this.socketListeners(socket)}
   },
 
-  handleSharedUsernameVariable: function(sharedValue) {
-    // console.log('this is sharedValue', sharedValue);
-    // console.log(this.state.sharedUsernameVariable);
-    this.setState({ sharedUsernameVariable: sharedValue });
-    // console.log(this.state.sharedUsernameVariable);
-    // console.log(this.state.sharedUsernameVariable.length);
+  // list of socket listeners
+  socketListeners: function(socket) {
+    socket.on('new article', this.receiveNewArticle);
+  },
+
+  receiveNewArticle: function(data) {
+    var userName;
+    if (data.userName === '') {
+      userName = 'Anonymous';
+    } else {
+      userName = data.userName;
+    };
+
+    // because of associations, have to declare empty array for articleLikes and comments
+    // or its respective length will return undefined
+    var newArticle = {
+      id: this.state.articles.length + 1,
+      title: data.title,
+      content: data.content,
+      userName: userName,
+      avatarUrl: 'https://image.freepik.com/free-icon/astronaut_318-136948.jpg',
+      // articleLikes: [],
+      // comments: []
+    };
+
+    // unshift new article into this.state.articles
+    // so latest article appears at the top
+    var addedArticlesList = this.state.articles;
+    addedArticlesList.unshift(newArticle);
+    this.setState({ articles: addedArticlesList });
+
   },
 
   articleCreate: function(data) {
@@ -42,7 +71,19 @@ var IndexPage = React.createClass({
         this.setState({ articles: articlesList });
       }.bind(this)
     });
+
+    // send new article to socket
+    socket.emit('new article', data);
   },
+
+  handleSharedUsernameVariable: function(sharedValue) {
+    // console.log('this is sharedValue', sharedValue);
+    // console.log(this.state.sharedUsernameVariable);
+    this.setState({ sharedUsernameVariable: sharedValue });
+    // console.log(this.state.sharedUsernameVariable);
+    // console.log(this.state.sharedUsernameVariable.length);
+  },
+
 
   render: function() {
     return (

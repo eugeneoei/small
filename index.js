@@ -88,18 +88,10 @@ app.get('/articles/:id', function(req,res) {
   var results = [];
   db.article.findOne({
     where: { id: req.params.id },
+    include: [db.articleLike, db.comment]
   }).then(function(article) {
-    article.getArticleLikes().then(function(articleLikes) {
-      results.push(articleLikes);
-      article.getComments({
-        order: [['createdAt', 'ASC']]
-      }).then(function(comments) {
-        results.push(comments);
-        // console.log('did you get sent???');
-        // console.log('see here for likes', results[0]);
-        res.send(results);
-      });
-    });
+    res.send(article)
+    console.log('see here for article>>>>>', article.articleLikes.length);
   });
 });
 
@@ -123,7 +115,7 @@ app.post('/articles/:id/comments', function(req,res) {
   });
 });
 
-// socket.io
+// socket
 io.on('connection', function(socket) {
   console.log('a user connected');
 
@@ -131,11 +123,18 @@ io.on('connection', function(socket) {
     console.log('user disconnected');
   });
 
+  // receive new comment
   socket.on('new comment', function(data, articleId) {
     console.log(data.userName, "says:", data.content);
     console.log(articleId);
     // broadcast to everyone except the user who created comment
     socket.broadcast.emit('new comment', data, articleId);
+  });
+
+  // receive new article
+  socket.on('new article', function(data) {
+    // broadcast to everyone execept user who created article
+    socket.broadcast.emit('new article', data);
   });
 
 

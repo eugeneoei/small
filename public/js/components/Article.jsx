@@ -134,20 +134,26 @@ var ArticleFooter = React.createClass({
 
   // // ajax to get number of likes and comments of each particular article
   componentWillMount: function() {
-    // console.log('footer componentWillMount');
     $.ajax({
       url: "/articles/" + this.props.articleId,
       method: "GET",
       success: function(dataFromServer) {
-        this.setState({ articleLikes: dataFromServer[0] });
-        // console.log(dataFromServer[0]);
-        this.setState({ comments: dataFromServer[1] });
+        // this.setState({ articleLikes: dataFromServer[0] });
+        // this.setState({ comments: dataFromServer[1] });
+        console.log(dataFromServer);
+        console.log(dataFromServer.articleLikes);
+        console.log(dataFromServer.articleLikes.length);
+        this.setState({ articleLikes: dataFromServer.articleLikes });
+        this.setState({ comments: dataFromServer.comments });
       }.bind(this),
     });
-    // start listening for incoming sockets when component is rendered
+
+    // start listening for any incoming sockets when component is rendered
+    // but is this the correct place to put it?
     {this.socketListeners(socket)}
   },
 
+  // list of socket listeners
   socketListeners: function(socket) {
     socket.on('new comment', this.receiveNewComment);
   },
@@ -159,13 +165,14 @@ var ArticleFooter = React.createClass({
     } else {
       userName = data.userName;
     }
+
     var newComment = {
       id: this.state.comments.length + 1,
       content: data.content,
       userName: userName,
       articleId: articleId
     };
-    console.log('see here for new comment object', newComment);
+
     // push new comment into this.state.comments
     var addedCommentList = this.state.comments;
     addedCommentList.push(newComment);
@@ -178,7 +185,6 @@ var ArticleFooter = React.createClass({
   },
 
   handleCommentCreate: function(data, articleId) {
-    // console.log(articleId);
     $.ajax({
       url: '/articles/' + articleId + '/comments',
       method: 'POST',
@@ -186,11 +192,13 @@ var ArticleFooter = React.createClass({
       success: function(dataFromServer) {
         var commentsList = this.state.comments;
         // push so latest comment appears at the bottom
-        // note that comments are in ASC order
+        // note that comments should be in ASC order
         commentsList.push(dataFromServer);
         this.setState({ comments: commentsList });
       }.bind(this),
     });
+
+    // send new comment to socket
     socket.emit('new comment', data, this.props.articleId);
   },
 
@@ -290,12 +298,10 @@ var ArticleComments = React.createClass({
 
   toggleCommentsBoxStatus: function() {
     this.setState({ sharedCommentsBoxStatus: !this.state.sharedCommentsBoxStatus })
-    // console.log(this.state.sharedCommentsBoxStatus);
     this.props.handleSharedCommentsBoxStatus(this.state.sharedCommentsBoxStatus)
   },
 
   render: function() {
-    // console.log('commentsBoxStatus', this.state.sharedCommentsBoxStatus);
     var comments = this.props.comments.length;
     return (
       <div className='col-md-6 col-sm-6 col-xs-6'>
@@ -365,7 +371,6 @@ var ArticleCommentsBox = React.createClass({
   },
 
   render: function() {
-    // console.log('ArticleComments box status', this.state.sharedCommentsBoxStatus);
     var comments = this.props.comments.length;
     return (
       <div key={this.props.articleId} className='col-md-12 col-sm-12 col-xs-12'>
