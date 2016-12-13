@@ -11,7 +11,7 @@ var Article = React.createClass({
   render: function() {
     // console.log(this.props.user);
     return (
-      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 articleBox'>
+      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 article-box'>
         <ArticleHeader avatarUrl={this.props.article.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
         <ArticleTitle title={this.props.article.title} />
         <ArticleContent content={this.props.article.content} />
@@ -30,12 +30,12 @@ var ArticleHeader = React.createClass({
     // need to calculate time difference here;
     var days = 2;
     return (
-      <div className='col-md-12 col-sm-12 col-xs-12'>
-        <div className='col-md-2 col-sm-2 col-xs-3'>
-          <img src= {this.props.avatarUrl} />
+      <div className='col-md-12 col-sm-12 col-xs-12 header-div'>
+        <div className='col-md-1 col-sm-1 col-xs-2'>
+          <img className='header-icon' src= {this.props.avatarUrl} />
         </div>
-        <div className='col-md-10 col-sm-10 col-xs-9'>
-          <div className='col-md-12 col-sm-12 col-xs-12'>
+        <div className='col-md-11 col-sm-11 col-xs-10 header-user'>
+          <div className='col-md-12 col-sm-12 col-xs-12 green'>
             {userName}
           </div>
           <div className='col-md-12 col-sm-12 col-xs-12'>
@@ -52,7 +52,7 @@ var ArticleTitle = React.createClass({
     var title = this.props.title;
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>
-        <h1>{title}</h1>
+        <span className='article-title'>{title}</span>
       </div>
     )
   }
@@ -86,11 +86,11 @@ var ArticleContent = React.createClass({
   view: function(text, expanded) {
     if(text.length > 500 && expanded){
       return (
-        <a onClick={this.viewFullArticle}>view less</a>
+        <a className='content-shortener-link' onClick={this.viewFullArticle}>View Less</a>
       )
     } else if (text.length > 500 && !expanded) {
       return (
-        <a onClick={this.viewFullArticle}>view more</a>
+        <a className='content-shortener-link' onClick={this.viewFullArticle}>View More</a>
       )
     }
   },
@@ -117,7 +117,9 @@ var ArticleContent = React.createClass({
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>
         <p>{this.contentShortener(content, this.state.expanded)}</p>
-        {this.view(content, this.state.expanded)}
+        <p className='content-shortener-para'>
+          {this.view(content, this.state.expanded)}
+        </p>
       </div>
     )
   }
@@ -253,13 +255,13 @@ var ArticleLikes = React.createClass({
     if (status) {
       return (
         <div>
-          <span className="glyphicon glyphicon-heart icon-footer" aria-hidden="true"></span> {this.props.articleLikes.length}
+          <span className="glyphicon glyphicon-heart icon-footer" aria-hidden="true"></span> <span className='grey'>{this.props.articleLikes.length}</span>
         </div>
       )
     } else {
       return (
         <div>
-          <span className="glyphicon glyphicon-heart-empty icon-footer" aria-hidden="true"></span> {this.props.articleLikes.length}
+          <span className="glyphicon glyphicon-heart-empty icon-footer" aria-hidden="true"></span> <span className='grey'>{this.props.articleLikes.length}</span>
         </div>
       )
     }
@@ -267,7 +269,7 @@ var ArticleLikes = React.createClass({
 
   render: function() {
     return (
-      <div className='col-md-6 col-sm-6 col-xs-6'>
+      <div className='col-md-6 col-sm-6 col-xs-6 icon-heart-div'>
         {this.userLike(this.state.likeStatus)}
       </div>
     )
@@ -285,13 +287,13 @@ var ArticleComments = React.createClass({
     if (commentsLength > 1) {
       return (
         <div>
-          {commentsLength} responses <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
+          <span className='grey'>{commentsLength} responses</span> <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
         </div>
       )
     } else {
       return (
         <div>
-          {commentsLength} response <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
+          <span className='grey'>{commentsLength} response</span> <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
         </div>
       )
     }
@@ -305,7 +307,7 @@ var ArticleComments = React.createClass({
   render: function() {
     var comments = this.props.comments.length;
     return (
-      <div className='col-md-6 col-sm-6 col-xs-6'>
+      <div className='col-md-6 col-sm-6 col-xs-6 response-icon-div'>
         {this.response(comments)}
       </div>
     )
