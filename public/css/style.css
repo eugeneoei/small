@@ -94,6 +94,7 @@
 
 #logo {
   width: 150px;
+  margin-left: -50px;
 }
 
 .logo-title {
@@ -161,4 +162,34 @@
 
 .content-shortener-para {
   margin-bottom: 10px;
+}
+
+.comments-main-box {
+  padding: 0;
+  margin-top: 20px;
+}
+
+.comment-box-odd {
+  /*padding: 0;*/
+  padding: 15px 25px;
+  background-color: #bfd8d2;
+}
+
+.comment-box-even {
+  padding: 15px 25px;
+  background-color: #fedcd2;
+}
+
+.comment-form-input {
+  width: 100%;
+  border: 1px solid #e5e5e5;
+  padding: 15px 25px;
+}
+
+.new-comment-div {
+  margin: 20px 0;
+}
+
+.username-div {
+  padding: 0;
 }

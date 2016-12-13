@@ -11,7 +11,7 @@ var Article = React.createClass({
   render: function() {
     // console.log(this.props.user);
     return (
-      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 article-box'>
+      <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 article-box container'>
         <ArticleHeader avatarUrl={this.props.article.avatarUrl} userName={this.props.article.userName} createdAt={this.props.article.createdAt} />
         <ArticleTitle title={this.props.article.title} />
         <ArticleContent content={this.props.article.content} />
@@ -333,25 +333,34 @@ var ArticleCommentsBox = React.createClass({
   showCommentsBox: function(status) {
     var commentBoxDiv;
     var inputBoxDiv;
-    var result = this.props.comments.map(function(comment) {
+    var result = this.props.comments.map(function(comment, index) {
       var userName = comment.userName
       var userNameComment = comment.content
       commentBoxDiv = 'commentBoxDiv' + comment.id,
       inputBoxDiv = 'inputBoxDiv' + comment.id
-      return (
-        <div key={commentBoxDiv} className='col-md-12 col-sm-12 col-xs-12'>
-          <p>{userName} says:</p>
-          <p>{userNameComment}</p>
-        </div>
-      )
+      if (index % 2 === 0) {
+        return (
+          <div key={commentBoxDiv} className='col-md-12 col-sm-12 col-xs-12 comment-box-even'>
+            <p>{userName} says:</p>
+            <p>{userNameComment}</p>
+          </div>
+        )
+      } else {
+        return (
+          <div key={commentBoxDiv} className='col-md-12 col-sm-12 col-xs-12 comment-box-odd'>
+            <p>{userName} says:</p>
+            <p>{userNameComment}</p>
+          </div>
+        )
+      }
     }.bind(this));
 
     if (status) {
       return (
-        <div key={inputBoxDiv} className='col-md-12 col-sm-12 col-xs-12'>
+        <div key={inputBoxDiv} className='col-md-12 col-sm-12 col-xs-12 new-comment-div'>
           {result}
           <form id='newCommentForm' onSubmit={this.handleNewCommentSubmit}>
-            <input className='form-input remove-glow' type='text' name='comment' placeholder='Write a comment...' value={this.state.newComment} onChange={this.handleNewCommentChange}></input>
+            <input className='form-input comment-form-input remove-glow' type='text' name='comment' placeholder='Write a comment...' value={this.state.newComment} onChange={this.handleNewCommentChange}></input>
           </form>
         </div>
       )
@@ -376,7 +385,7 @@ var ArticleCommentsBox = React.createClass({
   render: function() {
     var comments = this.props.comments.length;
     return (
-      <div key={this.props.articleId} className='col-md-12 col-sm-12 col-xs-12'>
+      <div key={this.props.articleId} className='col-md-12 col-sm-12 col-xs-12 comments-main-box'>
         {this.showCommentsBox(this.state.sharedCommentsBoxStatus)}
       </div>
     )
