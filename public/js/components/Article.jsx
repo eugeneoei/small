@@ -137,12 +137,12 @@ var ArticleFooter = React.createClass({
   },
 
   handleSharedCommentsBoxStatus: function(status) {
-    console.log('did you appear ArticleFooter component?');
+    // console.log('did you appear ArticleFooter component?');
     this.setState({ sharedCommentsBoxStatus: status })
   },
 
   render: function() {
-    console.log('footer component sharedCommentsBoxStatus', this.state.sharedCommentsBoxStatus );
+    // console.log('footer component sharedCommentsBoxStatus', this.state.sharedCommentsBoxStatus );
     return (
       <div>
         <div className='col-md-12 col-sm-12 col-xs-12'>
@@ -164,8 +164,9 @@ var ArticleLikes = React.createClass({
     }
   },
 
+  // receive update on the change in parent status
   componentWillReceiveProps: function(nextProps) {
-    var result = this.props.articleLikes.map(function(articleLike, index) {
+    this.props.articleLikes.map(function(articleLike, index) {
       if (nextProps.sharedUsernameVariable === articleLike.userName) {
         this.setState({ likeStatus: true });
       }
@@ -221,21 +222,13 @@ var ArticleComments = React.createClass({
   },
 
   toggleCommentsBoxStatus: function() {
-    // if (this.state.commentsBoxStatus) {
-    //   this.setState({ commentsBoxStatus: false })
-    //   console.log('toggle true part:', this.state.commentsBoxStatus);
-    // } else {
-    //   this.setState({ commentsBoxStatus: true })
-    //   console.log('toggle false part:', this.state.commentsBoxStatus);
-    // }
     this.setState({ sharedCommentsBoxStatus: !this.state.sharedCommentsBoxStatus })
-    console.log(this.state.sharedCommentsBoxStatus);
+    // console.log(this.state.sharedCommentsBoxStatus);
     this.props.handleSharedCommentsBoxStatus(this.state.sharedCommentsBoxStatus)
   },
 
   render: function() {
-    console.log('commentsBoxStatus', this.state.sharedCommentsBoxStatus);
-
+    // console.log('commentsBoxStatus', this.state.sharedCommentsBoxStatus);
     var comments = this.props.comments.length;
     return (
       <div className='col-md-6 col-sm-6 col-xs-6'>
@@ -248,29 +241,53 @@ var ArticleComments = React.createClass({
 var ArticleCommentsBox = React.createClass({
   getInitialState: function() {
     return {
-      sharedCommentsBoxStatus: this.props.sharedCommentsBoxStatus
+      sharedCommentsBoxStatus: this.props.sharedCommentsBoxStatus,
+      articleComments: this.props.comments,
+      newComment: ''
     }
   },
 
-  showCommentsBox: function(status) {
-    if (status) {
-      return (
-        <div className='cold-md-12 col-sm-12 col-xs-12'>
-          COMMENTS SHOULD APPEAR HERE
-        </div>
-      )
-    }
-  },
-
+  // receive update on the change in parent status
   componentWillReceiveProps: function(nextProps) {
     if (nextProps.sharedCommentsBoxStatus !== this.props.sharedCommentsBoxStatus) {
       this.setState({ sharedCommentsBoxStatus: nextProps.sharedCommentsBoxStatus });
     }
   },
 
-  render: function() {
-    console.log('ArticleComments box status', this.state.sharedCommentsBoxStatus);
+  showCommentsBox: function(status) {
+    var result = this.state.articleComments.map(function(comment) {
+      var userName = comment.userName
+      var userNameComment = comment.content
+      return (
+        <div key={comment.id} className='col-md-12 col-sm-12 col-xs-12'>
+          <p>{userName} says:</p>
+          <p>{userNameComment}</p>
+        </div>
+      )
+    });
 
+    if (status) {
+      return (
+        <div className='col-md-12 col-sm-12 col-xs-12'>
+          {result}
+          <form onSubmit={this.handleNewCommentSubmit}>
+            <input className='form-input remove-glow' type='text' name='comment' placeholder='Write a comment...' value={this.state.newComment} onChange={this.handleNewCommentChange}></input>
+          </form>
+      </div>
+      )
+    }
+  },
+
+  handleNewCommentChange: function(event) {
+    this.setState({ newComment: event.target.value })
+  },
+
+  handleNewCommentSubmit: function(event) {
+    event.preventDefault();
+  },
+
+  render: function() {
+    // console.log('ArticleComments box status', this.state.sharedCommentsBoxStatus);
     var comments = this.props.comments.length;
     return (
       <div className='col-md-12 col-sm-12 col-xs-12'>

@@ -43,7 +43,7 @@ app.use(bodyParser.urlencoded({     // to support URL-encoded bodies
 // app.use(ejsLayouts);
 
 app.get('/', function(req, res) {
-  // console.log(req.user); 
+  // console.log(req.user);
   res.render("index")
 });
 
@@ -85,7 +85,9 @@ app.get('/articles/:id', function(req,res) {
   }).then(function(article) {
     article.getArticleLikes().then(function(articleLikes) {
       results.push(articleLikes);
-      article.getComments().then(function(comments) {
+      article.getComments({
+        order: [['createdAt', 'ASC']]
+      }).then(function(comments) {
         results.push(comments);
         // console.log('did you get sent???');
         // console.log('see here for likes', results[0]);
