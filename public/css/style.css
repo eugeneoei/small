@@ -45,7 +45,14 @@
   cursor: pointer;
 }
 
+.icon-footer {
+  color: #00ab6b;
+  font-size: 20px;
+}
 
+.icon-footer:hover {
+  cursor: pointer;
+}
 
 .navbar-back {
   display: inline-block;

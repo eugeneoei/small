@@ -87,17 +87,21 @@ var ArticleContent = React.createClass({
   },
 
   viewFullArticle: function() {
+    // console.log("hello");
     // this function changes the state of the expanded key from true to false
     // and vice versa upon click of view more/less
     if(this.state.expanded){
       this.setState({expanded: false})
+      // console.log('view full article toggle>>>>>>', this.state.expanded);
     }
     else{
       this.setState({expanded: true})
+      // console.log('view full article toggle>>>>>>', this.state.expanded);
     }
   },
 
   render: function() {
+    // console.log('this is in render function', this.state.expanded)
     var content = this.props.content;
     // console.log('render', content);
     // console.log(typeof(content));
@@ -114,7 +118,8 @@ var ArticleFooter = React.createClass({
   getInitialState: function() {
     return {
       articleLikes: [],
-      comments: []
+      comments: [],
+      sharedCommentsBoxStatus: false
     }
   },
 
@@ -131,17 +136,28 @@ var ArticleFooter = React.createClass({
     });
   },
 
+  handleSharedCommentsBoxStatus: function(status) {
+    console.log('did you appear ArticleFooter component?');
+    this.setState({ sharedCommentsBoxStatus: status })
+  },
+
   render: function() {
+    console.log('footer component sharedCommentsBoxStatus', this.state.sharedCommentsBoxStatus );
     return (
-      <div className='col-md-12 col-sm-12 col-xs-12'>
-        <ArticlesLikes articleLikes={this.state.articleLikes} sharedUsernameVariable={this.props.sharedUsernameVariable} />
-        <ArticlesComments comments={this.state.comments}/>
+      <div>
+        <div className='col-md-12 col-sm-12 col-xs-12'>
+          <ArticleLikes articleLikes={this.state.articleLikes} sharedUsernameVariable={this.props.sharedUsernameVariable} />
+          <ArticleComments comments={this.state.comments} sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus} handleSharedCommentsBoxStatus={this.handleSharedCommentsBoxStatus} />
+        </div>
+        <div>
+          <ArticleCommentsBox comments={this.state.comments} sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus} />
+        </div>
       </div>
     )
   }
 });
 
-var ArticlesLikes = React.createClass({
+var ArticleLikes = React.createClass({
   getInitialState: function() {
     return {
       likeStatus: false
@@ -160,13 +176,13 @@ var ArticlesLikes = React.createClass({
     if (status) {
       return (
         <div>
-          <span className="glyphicon glyphicon-heart green" aria-hidden="true"></span> {this.props.articleLikes.length}
+          <span className="glyphicon glyphicon-heart icon-footer" aria-hidden="true"></span> {this.props.articleLikes.length}
         </div>
       )
     } else {
       return (
         <div>
-          <span className="glyphicon glyphicon-heart-empty green" aria-hidden="true"></span> {this.props.articleLikes.length}
+          <span className="glyphicon glyphicon-heart-empty icon-footer" aria-hidden="true"></span> {this.props.articleLikes.length}
         </div>
       )
     }
@@ -181,31 +197,84 @@ var ArticlesLikes = React.createClass({
   }
 });
 
-var ArticlesComments = React.createClass({
-
-  // need to show comments in each individual article
+var ArticleComments = React.createClass({
+  getInitialState: function() {
+    return {
+      sharedCommentsBoxStatus: this.props.sharedCommentsBoxStatus
+    }
+  },
 
   response: function(commentsLength) {
     if (commentsLength > 1) {
       return (
         <div>
-          {commentsLength} responses <span className="glyphicon glyphicon-comment green" aria-hidden="true"></span>
+          {commentsLength} responses <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
         </div>
       )
     } else {
       return (
         <div>
-          {commentsLength} response <span className="glyphicon glyphicon-comment green" aria-hidden="true"></span>
+          {commentsLength} response <span className="glyphicon glyphicon-comment icon-footer" onClick={this.toggleCommentsBoxStatus} aria-hidden="true"></span>
         </div>
       )
     }
   },
 
+  toggleCommentsBoxStatus: function() {
+    // if (this.state.commentsBoxStatus) {
+    //   this.setState({ commentsBoxStatus: false })
+    //   console.log('toggle true part:', this.state.commentsBoxStatus);
+    // } else {
+    //   this.setState({ commentsBoxStatus: true })
+    //   console.log('toggle false part:', this.state.commentsBoxStatus);
+    // }
+    this.setState({ sharedCommentsBoxStatus: !this.state.sharedCommentsBoxStatus })
+    console.log(this.state.sharedCommentsBoxStatus);
+    this.props.handleSharedCommentsBoxStatus(this.state.sharedCommentsBoxStatus)
+  },
+
   render: function() {
+    console.log('commentsBoxStatus', this.state.sharedCommentsBoxStatus);
+
     var comments = this.props.comments.length;
     return (
       <div className='col-md-6 col-sm-6 col-xs-6'>
         {this.response(comments)}
+      </div>
+    )
+  }
+});
+
+var ArticleCommentsBox = React.createClass({
+  getInitialState: function() {
+    return {
+      sharedCommentsBoxStatus: this.props.sharedCommentsBoxStatus
+    }
+  },
+
+  showCommentsBox: function(status) {
+    if (status) {
+      return (
+        <div className='cold-md-12 col-sm-12 col-xs-12'>
+          COMMENTS SHOULD APPEAR HERE
+        </div>
+      )
+    }
+  },
+
+  componentWillReceiveProps: function(nextProps) {
+    if (nextProps.sharedCommentsBoxStatus !== this.props.sharedCommentsBoxStatus) {
+      this.setState({ sharedCommentsBoxStatus: nextProps.sharedCommentsBoxStatus });
+    }
+  },
+
+  render: function() {
+    console.log('ArticleComments box status', this.state.sharedCommentsBoxStatus);
+
+    var comments = this.props.comments.length;
+    return (
+      <div className='col-md-12 col-sm-12 col-xs-12'>
+        {this.showCommentsBox(this.state.sharedCommentsBoxStatus)}
       </div>
     )
   }
