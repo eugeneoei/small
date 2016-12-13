@@ -141,16 +141,46 @@ var ArticleFooter = React.createClass({
     this.setState({ sharedCommentsBoxStatus: status })
   },
 
+  handleCommentCreate: function(data, articleId) {
+    // console.log(articleId);
+
+    $.ajax({
+      url: '/articles/' + articleId + '/comments',
+      method: 'POST',
+      data: data,
+      success: function(dataFromServer) {
+        var commentsList = this.state.comments;
+        // push so latest comment appears at the bottom
+        // note that comments are in ASC order
+        commentsList.push(dataFromServer);
+        this.setState({ comments: commentsList });
+      }.bind(this),
+    })
+  },
+
   render: function() {
     // console.log('footer component sharedCommentsBoxStatus', this.state.sharedCommentsBoxStatus );
     return (
       <div>
         <div className='col-md-12 col-sm-12 col-xs-12'>
-          <ArticleLikes articleLikes={this.state.articleLikes} sharedUsernameVariable={this.props.sharedUsernameVariable} />
-          <ArticleComments comments={this.state.comments} sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus} handleSharedCommentsBoxStatus={this.handleSharedCommentsBoxStatus} />
+          <ArticleLikes
+            articleLikes={this.state.articleLikes}
+            sharedUsernameVariable={this.props.sharedUsernameVariable}
+          />
+          <ArticleComments
+            comments={this.state.comments}
+            sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus}
+            handleSharedCommentsBoxStatus={this.handleSharedCommentsBoxStatus}
+          />
         </div>
         <div>
-          <ArticleCommentsBox comments={this.state.comments} sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus} />
+          <ArticleCommentsBox
+            sharedUsernameVariable={this.props.sharedUsernameVariable}
+            sharedCommentsBoxStatus={this.state.sharedCommentsBoxStatus}
+            comments={this.state.comments}
+            handleCommentCreate={this.handleCommentCreate}
+            articleId={this.props.articleId}
+          />
         </div>
       </div>
     )
@@ -255,7 +285,7 @@ var ArticleCommentsBox = React.createClass({
   },
 
   showCommentsBox: function(status) {
-    var result = this.state.articleComments.map(function(comment) {
+    var result = this.props.comments.map(function(comment) {
       var userName = comment.userName
       var userNameComment = comment.content
       return (
@@ -284,6 +314,13 @@ var ArticleCommentsBox = React.createClass({
 
   handleNewCommentSubmit: function(event) {
     event.preventDefault();
+    // reset input back to empty
+    this.setState({ newComment: '' })
+    var data = {
+      userName: this.props.sharedUsernameVariable,
+      content: this.state.newComment
+    }
+    this.props.handleCommentCreate(data, this.props.articleId)
   },
 
   render: function() {

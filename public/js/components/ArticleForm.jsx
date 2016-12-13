@@ -47,7 +47,8 @@ var ArticleForm = React.createClass({
     this.setState({ articleContent: event.target.value });
   },
 
-  handleCreateArticleForm: function() {
+  handleCreateArticleForm: function(event) {
+    event.preventDefault();
     this.props.articleCreate({
       title: this.state.articleTitle,
       content: this.state.articleContent,

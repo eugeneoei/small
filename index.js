@@ -97,4 +97,23 @@ app.get('/articles/:id', function(req,res) {
   });
 });
 
+app.post('/articles/:id/comments', function(req,res) {
+  var userName;
+  if (req.body.userName) {
+    userName = req.body.userName;
+  } else {
+    userName = 'Anonymous';
+  }
+  db.article.findOne({
+    where: { id: req.params.id },
+  }).then(function(article) {
+    article.createComment({
+      content: req.body.content,
+      userName: userName
+    }).then(function(comment) {
+      res.send(comment);
+    });
+  });
+});
+
 var server = app.listen(process.env.PORT || 3000);
