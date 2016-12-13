@@ -153,16 +153,22 @@ var ArticleFooter = React.createClass({
   },
 
   receiveNewComment: function(data, articleId) {
+    var userName;
+    if (data.userName === '') {
+      userName = 'Anonymous';
+    } else {
+      userName = data.userName;
+    }
     var newComment = {
       id: this.state.comments.length + 1,
       content: data.content,
-      userName: data.userName,
+      userName: userName,
       articleId: articleId
     };
     console.log('see here for new comment object', newComment);
     // push new comment into this.state.comments
     var addedCommentList = this.state.comments;
-    addedCommentList.push(data);
+    addedCommentList.push(newComment);
     this.setState({ comments: addedCommentList });
   },
 
@@ -185,7 +191,6 @@ var ArticleFooter = React.createClass({
         this.setState({ comments: commentsList });
       }.bind(this),
     });
-
     socket.emit('new comment', data, this.props.articleId);
   },
 
