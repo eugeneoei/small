@@ -140,14 +140,14 @@ var ArticleFooter = React.createClass({
       url: "/articles/" + this.props.articleId,
       method: "GET",
       success: function(dataFromServer) {
-        // this.setState({ articleLikes: dataFromServer[0] });
-        // this.setState({ comments: dataFromServer[1] });
+        this.setState({ articleLikes: dataFromServer[0] });
+        this.setState({ comments: dataFromServer[1] });
         // console.log(dataFromServer);
         // console.log(dataFromServer.articleLikes);
         // BUG SEEMS TO BE HERE. IT COMES AND GO. NEED HELP
         // console.log(dataFromServer.articleLikes.length);
-        this.setState({ articleLikes: dataFromServer.articleLikes });
-        this.setState({ comments: dataFromServer.comments });
+        // this.setState({ articleLikes: dataFromServer.articleLikes });
+        // this.setState({ comments: dataFromServer.comments });
       }.bind(this),
     });
 

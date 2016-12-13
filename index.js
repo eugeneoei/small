@@ -88,10 +88,15 @@ app.get('/articles/:id', function(req,res) {
   var results = [];
   db.article.findOne({
     where: { id: req.params.id },
-    include: [db.articleLike, db.comment]
   }).then(function(article) {
-    res.send(article)
-    console.log('see here for article>>>>>', article.articleLikes.length);
+    article.getArticleLikes().then(function(articlelikes) {
+      results.push(articlelikes);
+      article.getComments().then(function(comments) {
+        results.push(comments);
+        res.send(results);
+        // console.log('see here for article>>>>>', article.articleLikes.length);
+      });
+    });
   });
 });
 

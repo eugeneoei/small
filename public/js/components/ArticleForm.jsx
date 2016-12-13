@@ -26,7 +26,7 @@ var ArticleForm = React.createClass({
           <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 login'>
             <span className='article-form-label'>TITLE:</span>
             <input className='form-input remove-glow article-form-input' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
-            <span className='article-form-label'>Content:</span>
+            <span className='article-form-label'>CONTENT:</span>
             <textarea className='form-input remove-glow article-form-input' type='text' name='content' placeholder='Content' value={this.state.articleContent} onChange={this.handleArticleContentChange} />
             <div className='button button-create-article' onClick={this.handleCreateArticleForm}>SUBMIT</div>
           </div>
