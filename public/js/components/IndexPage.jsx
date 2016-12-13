@@ -87,7 +87,7 @@ var IndexPage = React.createClass({
 
   render: function() {
     return (
-      <div>
+      <div className='lato'>
         <NavBar sharedUsernameVariable={this.state.sharedUsernameVariable} handleSharedUsernameVariable={this.handleSharedUsernameVariable} />
         <ArticleForm sharedUsernameVariable={this.state.sharedUsernameVariable} articleCreate={this.articleCreate} />
         <ArticlesContainer articles={this.state.articles} sharedUsernameVariable={this.state.sharedUsernameVariable} />

@@ -23,11 +23,13 @@ var ArticleForm = React.createClass({
           <div className='center'>
             <span className="glyphicon glyphicon-minus-sign icon" onClick={this.toggleCreateArticleForm} aria-hidden="true"></span>
           </div>
-          TITLE:
-          <input className='form-input remove-glow' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
-          Content:
-          <input className='form-input remove-glow' type='text' name='content' placeholder='Content' value={this.state.articleContent} onChange={this.handleArticleContentChange}></input>
-          <div className='button' onClick={this.handleCreateArticleForm}>SUBMIT</div>
+          <div className='col-md-8 col-md-offset-2 col-sm-10 col-sm-offset-1 col-xs-12 login'>
+            <span className='article-form-label'>TITLE:</span>
+            <input className='form-input remove-glow article-form-input' type='text' name='title' placeholder='Title' value={this.state.articleTitle} onChange={this.handleArticleTitleChange}></input>
+            <span className='article-form-label'>Content:</span>
+            <textarea className='form-input remove-glow article-form-input' type='text' name='content' placeholder='Content' value={this.state.articleContent} onChange={this.handleArticleContentChange} />
+            <div className='button button-create-article' onClick={this.handleCreateArticleForm}>SUBMIT</div>
+          </div>
         </form>
       )
     } else {

@@ -9,7 +9,7 @@ var ArticlesContainer = React.createClass({
     }.bind(this));
 
     return (
-      <div className='container'>
+      <div className=''>
         {result}
       </div>
     )
