@@ -163,6 +163,7 @@ var ArticleFooter = React.createClass({
 
   receiveNewComment: function(data, articleId) {
     // check if new comment belongs to individual article
+    // if true then push into this.state.commends array
     if (articleId === this.props.articleId) {
       var userName;
       if (data.userName === '') {
