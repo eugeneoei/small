@@ -162,24 +162,28 @@ var ArticleFooter = React.createClass({
   },
 
   receiveNewComment: function(data, articleId) {
-    var userName;
-    if (data.userName === '') {
-      userName = 'Anonymous';
-    } else {
-      userName = data.userName;
+    // check if new comment belongs to individual article
+    if (articleId === this.props.articleId) {
+      var userName;
+      if (data.userName === '') {
+        userName = 'Anonymous';
+      } else {
+        userName = data.userName;
+      }
+
+      var newComment = {
+        id: this.state.comments.length + 1,
+        content: data.content,
+        userName: userName,
+        articleId: articleId
+      };
+
+      // push new comment into this.state.comments
+      var addedCommentList = this.state.comments;
+      addedCommentList.push(newComment);
+      this.setState({ comments: addedCommentList });
     }
 
-    var newComment = {
-      id: this.state.comments.length + 1,
-      content: data.content,
-      userName: userName,
-      articleId: articleId
-    };
-
-    // push new comment into this.state.comments
-    var addedCommentList = this.state.comments;
-    addedCommentList.push(newComment);
-    this.setState({ comments: addedCommentList });
   },
 
   handleSharedCommentsBoxStatus: function(status) {
