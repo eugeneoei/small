@@ -343,6 +343,11 @@ var ArticleCommentsBox = React.createClass({
       var userNameComment = comment.content
       commentBoxDiv = 'commentBoxDiv' + comment.id,
       inputBoxDiv = 'inputBoxDiv' + comment.id
+      // Conditional (ternary) Operator
+      // condition ? expr1 : expr2
+      // user ternary operator to shorten this chunk of code here
+      // you can also set a variable for comment-box-even/comment-box-odd
+      // so you dont have to repeat the chunk of code here
       if (index % 2 === 0) {
         return (
           <div key={commentBoxDiv} className='col-md-12 col-sm-12 col-xs-12 comment-box-even'>
